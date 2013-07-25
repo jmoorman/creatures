@@ -1,0 +1,11 @@
+CreatureNode::CreatureNode()
+{
+
+}
+
+CreatureNode::~CreatureNode()
+{
+
+}
+
+
