@@ -1,3 +1,5 @@
+#pragma once
+
 #include "neuron.h"
 
 class Effector

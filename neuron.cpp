@@ -67,8 +67,3 @@ void HungerNeuron::ComputeValue()
   value_ = 0;
 }
 
-int main()
-{
-  ThresholdNeuron tn(0.7);
-  return 0;
-}
