@@ -58,14 +58,22 @@ bool OCApplicationManager::init()
 
 void OCApplicationManager::update() 
 {
+   using std::chrono::high_resolution_clock;
+   using std::chrono::duration_cast;
+   using std::chrono::microseconds;
+   static auto previous_time = std::chrono::high_resolution_clock::now();
    SDL_Event event;
    while(m_running)
    {
+      auto current_time = std::chrono::high_resolution_clock::now();
+      auto dt = duration_cast<microseconds>(current_time - previous_time).count();
+      std::cout << dt << std::endl;
       while(SDL_PollEvent(&event))
       {
          onEvent(&event);     
       }
-      //model_->update();
+      model_->update(dt / 1000000.f);
+      previous_time = current_time;
    }
 }
 

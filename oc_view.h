@@ -8,7 +8,7 @@ class OCView
 {
 public:
    OCView(SDL_Window *window, unsigned int width, unsigned int height, OCModel *model);
-   ~OCView();
+   virtual ~OCView();
    virtual void render();
 private:
    SDL_Renderer *renderer_;

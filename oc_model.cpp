@@ -16,6 +16,7 @@ void OCModel::init()
    solver_ = new btSequentialImpulseConstraintSolver;
    dynamics_world_ = new btDiscreteDynamicsWorld(dispatcher_, broadphase_, 
          solver_, collision_configuration_);
+   dynamics_world_->setGravity(btVector3(0, -10, 0));
    dynamics_world_->setDebugDrawer(new OCDebugDraw());
    
 
@@ -77,7 +78,7 @@ void OCModel::init()
    }
 }
 
-void OCModel::update(dt)
+void OCModel::update(float dt)
 {
    dynamics_world_->stepSimulation(dt);
 }
