@@ -40,7 +40,6 @@ void OCModel::init()
    }
 
    {
-
       btBoxShape *col_shape = new btBoxShape(btVector3(1, 1, 1));
       collision_shapes_.push_back(col_shape);
       btTransform start_transform;
