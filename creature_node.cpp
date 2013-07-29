@@ -1,25 +1,28 @@
 #include "creature_node.h"
 
-CreatureNode::CreatureNode(float scale, float density, 
-                           const std::shared_ptr<btCollisionShape> &shape)
+CreatureNode::CreatureNode(float scale, 
+                           float density, 
+                           const std::shared_ptr<btBoxShape> &shape)
     : scale_(scale), density_(density), shape_(shape), body_(NULL)
 {
 }
 
-CreatureNode::CreatureNode(float scale, float density, btVector3 &dimensions) 
-    : scale_(scale), density_(density), body_(NULL)
+CreatureNode::CreatureNode(float scale, float density, const btVector3 &dimensions) 
+    : scale_(scale), 
+      density_(density), 
+      shape_(new btBoxShape(dimensions)), 
+      body_(NULL) 
 {
-   shape_(new btBoxShape(dimensions));
 }
 
 CreatureNode::~CreatureNode()
 {
-   delete body_;
 }
 
-void CreatureNode::AddToWorld(btDynamicsWorld *world, btVector3 &pos)
+void CreatureNode::AddToWorld(btDynamicsWorld *world, const btVector3 &pos)
 {
    btTransform start_transform;
+   start_transform.setIdentity();
    start_transform.setOrigin(pos);
    btDefaultMotionState *motion_state = 
       new btDefaultMotionState(start_transform);
@@ -31,8 +34,21 @@ void CreatureNode::AddToWorld(btDynamicsWorld *world, btVector3 &pos)
 
    btRigidBody::btRigidBodyConstructionInfo info(mass, 
                                                  motion_state,
-                                                 shape.get(),
+                                                 shape_.get(),
                                                  local_inertia);
    body_ = new btRigidBody(info);
    world->addRigidBody(body_);
+}
+   
+void CreatureNode::RemoveFromWorld(btDynamicsWorld *world)
+{
+   if(body_)
+   {
+      world->removeCollisionObject(body_);
+      if(auto ms = body_->getMotionState())
+      {
+         delete ms;
+      }
+      delete body_;
+   }
 }

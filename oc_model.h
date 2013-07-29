@@ -1,6 +1,10 @@
 #pragma once
 
+#include <vector>
+
 #include <btBulletDynamicsCommon.h>
+
+#include "creature_node.h"
 
 class OCModel
 {
@@ -19,4 +23,5 @@ class OCModel
   btConstraintSolver *solver_;
   btDefaultCollisionConfiguration *collision_configuration_;
   btDiscreteDynamicsWorld *dynamics_world_;
+  std::vector<CreatureNode *> creatures_;
 };

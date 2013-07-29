@@ -67,7 +67,7 @@ void OCApplicationManager::update()
    {
       auto current_time = std::chrono::high_resolution_clock::now();
       auto dt = duration_cast<microseconds>(current_time - previous_time).count();
-      std::cout << dt << std::endl;
+      //std::cout << dt << std::endl;
       while(SDL_PollEvent(&event))
       {
          onEvent(&event);     

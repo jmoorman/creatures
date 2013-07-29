@@ -10,18 +10,23 @@ class CreatureNode
 {
  public:
 
-  /*Create a new creature with the given dimensions*/
-  CreatureNode(float scale, float density, btVector3 &dimensions);
-  
   /*Create a new creature using the given collision shape*/
-  CreatureNode(float scale, float density, 
-               const std::shared_ptr<btCollisionShape> &shape);
+  CreatureNode(float scale, float density, const std::shared_ptr<btBoxShape> &shape);
+  
+  /*Create a new creature with the given dimensions*/
+  CreatureNode(float scale, float density, const btVector3 &dimensions);
   
   ~CreatureNode();
   
   /*Initialize the physics of the node and add it to the simulation*/
-  void AddToWorld(btDynamicsWorld &world, btVector3 &pos);
+  void AddToWorld(btDynamicsWorld *world, const btVector3 &pos);
 
+  /*Remove rigid body from world and destroy it*/
+  void RemoveFromWorld(btDynamicsWorld *world);
+
+ private:
+  //std::vector<CreatureNode *> children;
+  
   float scale_; // [0.5, 2]
   float density_; // [0 - 1]
   
@@ -29,7 +34,8 @@ class CreatureNode
    * Needs to be reused descendants but deleted when this genetic line 
    * ceases to exist.
    */
-  std::shared_ptr<btCollisionShape> shape_; 
-  
+  std::shared_ptr<btBoxShape> shape_; 
+  // btBoxShape *shape_;
+
   btRigidBody *body_;
 };

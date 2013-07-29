@@ -6,7 +6,7 @@ LIBDIRS= -L/opt/local/lib -L/usr/local/lib
 LIBS = -lBulletDynamics -lBulletCollision -lLinearMath -framework Cocoa -framework OpenGL -lSDL2 -lSDL2main -lboost_thread-mt -lboost_system-mt
 INCLUDES = -I/usr/local/include/bullet -I/opt/local/include -I/usr/local/include
 
-FLAGS= -std=c++11 -Wall -pedantic
+FLAGS= -std=c++11 
 LDFLAGS= $(LIBDIRS) $(LIBS)
 
 SRC = *.cpp
